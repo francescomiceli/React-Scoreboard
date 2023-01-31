@@ -1,3 +1,26 @@
+const players = [
+    {
+        name: "Guil",
+        score: 50,
+        id: 1
+      },
+      {
+        name: "Treasure",
+        score: 85,
+        id: 2
+      },
+      {
+        name: "Ashley",
+        score: 95,
+        id: 3
+      },
+      {
+        name: "James",
+        score: 80,
+        id: 4
+      }
+];
+
 
 {/* Components creation*/}
 
@@ -15,7 +38,7 @@ const Player = (props) => {
     return(
         <div className="player">
             <span className="player-name">
-                {props.nome}
+                {props.name}
             </span>
 
             <Counter score = {props.score} />
@@ -35,30 +58,30 @@ const Counter = (props) => {
     );
 }
 
-const App = () => {
+const App = (props) => {
     return(
         <div className="scoreboard">
             <Header 
             title="Scoreboard" 
-            totalPlayers={1} 
+            totalPlayers={props.initialPlayers.length} 
             />
 
             {/* Player list*/}
-            <Player nome="Francesco" score= {50} />
-            <Player nome="Giovanni" score= {10} />
-            <Player nome="Marta" score= {38} />
-            <Player nome="Giulia" score= {26} />
+            {/* Map ha la funzione del for each looppa gli elementi all'interno dell'array */} 
+            {props.initialPlayers.map( player =>
+                <Player 
+                    {...player }
+                    score= { player.score }
+                    key= { player.id.toString() }
+                />
+            )}
 
-
-        
-
-            
-            
         </div>
     );
 }
 
 ReactDOM.render(
-    <App />,
+    // Qui passare l'array
+    <App initialPlayers= { players } />,
     document.getElementById('root')
 );
